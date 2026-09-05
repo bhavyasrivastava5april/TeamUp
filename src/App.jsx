@@ -1,7 +1,28 @@
-
+import { useState } from "react";
 import "./App.css";
 
 function App() {
+  const [search, setSearch] = useState("");
+  const events = [
+  {
+    name: "Smart India Hackathon",
+    membersNeeded: 2,
+    skills: "React, Python",
+  },
+  {
+    name: "Google Solution Challenge",
+    membersNeeded: 1,
+    skills: "UI/UX, Figma",
+  },
+  {
+    name: "Hackathon India",
+    membersNeeded: 3,
+    skills: "JavaScript, Node.js",
+  },
+];
+const filteredEvents = events.filter((event) =>
+  event.name.toLowerCase().includes(search.toLowerCase())
+);
   return (
     <div className="app">
       <nav className="navbar">
@@ -35,7 +56,24 @@ function App() {
               competitions, and events based on their skills, interests, and
               availability.
             </p>
-
+            <div className="search-box">
+  <input
+    type="text"
+    placeholder="Search hackathons, competitions..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+  />
+</div>
+<div className="search-results">
+  {search &&
+  filteredEvents.map((event) => (
+    <div className="event-card" key={event.name}>
+      <h3>{event.name}</h3>
+      <p>Members needed: {event.membersNeeded}</p>
+      <p>Looking for: {event.skills}</p>
+    </div>
+  ))}
+</div>
             <div className="hero-buttons">
               <button className="primary-btn">Find Teammates →</button>
               <button className="secondary-btn">Explore Events</button>
