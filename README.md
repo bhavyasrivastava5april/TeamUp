@@ -1,16 +1,76 @@
-# React + Vite
+# TeamUp
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+TeamUp is a platform that helps college students find teammates for hackathons, competitions, and other events.
 
-Currently, two official plugins are available:
+## Problem
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Students often want to participate in hackathons and competitions but struggle to find people who are also looking for teammates.
 
-## React Compiler
+TeamUp provides a simple place where students can post their team requirements and search for existing opportunities to join.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Current Features
 
-## Expanding the Oxlint configuration
+* Search for hackathons and competitions
+* View team requirements
+* See the number of members needed
+* See the skills a team is looking for
+* Simple and clean user interface
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Planned Features
+
+* Create a teammate requirement post
+* View detailed event and team information
+* Express interest in joining a team
+* Contact the person who created a post
+* Add official event links
+* Store posts using a database
+* User authentication
+
+## Tech Stack
+
+* React
+* Vite
+* JavaScript
+* HTML
+* CSS
+
+## Project Status
+
+🚧 TeamUp is currently under development.
+
+The current version focuses on building the core search and event discovery experience.
+
+## Getting Started
+
+### Clone the repository
+
+```bash
+git clone https://github.com/bhavyasrivastava5april/TeamUp.git
+```
+
+### Go to the project folder
+
+```bash
+cd TeamUp/teamup
+```
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Start the development server
+
+```bash
+npm run dev
+```
+
+The application will then be available on the local development server.
+
+## Author
+
+Bhavya Srivastava
+
+
+
