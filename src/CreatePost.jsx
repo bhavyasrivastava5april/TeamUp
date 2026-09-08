@@ -2,8 +2,9 @@ import { useState } from "react";
 
 function CreatePost() {
   const [eventName, setEventName] = useState(""); 
+  const [submitted, setSubmitted] = useState(false);
   return (
-    <div>
+    <div className="create-post">
   <h1>Create a TeamUp Post</h1>
   <p>Find teammates for your next hackathon or competition.</p>
 
@@ -34,9 +35,11 @@ function CreatePost() {
   type="text"
   placeholder="How can interested teammates contact you?"
 />
-<button type="button">
+<button type="button" onClick={() => setSubmitted(true)}>
   Create Post
 </button>
+
+{submitted && <p>Post created successfully! 🎉</p>}
 </div>
   );
 }
