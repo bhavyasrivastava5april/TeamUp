@@ -358,3 +358,25 @@ button {
 .create-post button:hover {
   opacity: 0.9;
 }
+.created-post {
+  margin-top: 30px;
+  padding: 25px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #f9fafb;
+}
+
+.created-post h2 {
+  margin-bottom: 15px;
+}
+
+.created-post p {
+  margin: 8px 0;
+}
+
+.created-post a {
+  display: inline-block;
+  margin-top: 15px;
+  text-decoration: none;
+  font-weight: 600;
+}
