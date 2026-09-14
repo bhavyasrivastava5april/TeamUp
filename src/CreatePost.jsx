@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function CreatePost() {
   const [eventName, setEventName] = useState("");
@@ -9,6 +9,14 @@ function CreatePost() {
   const [description, setDescription] = useState("");
   const [contact, setContact] = useState("");
   const [post, setPost] = useState(null);
+  useEffect(() => {
+  const savedPost = localStorage.getItem("teamupPost");
+
+  if (savedPost) {
+    setPost(JSON.parse(savedPost));
+    setSubmitted(true);
+  }
+}, []);
 
   return (
     <div className="create-post">
@@ -76,15 +84,18 @@ function CreatePost() {
             return;
           }
 
-          setPost({
-            eventName,
-            eventLink,
-            membersNeeded,
-            skills,
-            description,
-            contact,
-          });
+         const newPost = {
+  eventName,
+  eventLink,
+  membersNeeded,
+  skills,
+  description,
+  contact,
+};
 
+setPost(newPost);
+
+localStorage.setItem("teamupPost", JSON.stringify(newPost));
           setSubmitted(true);
         }}
       >
