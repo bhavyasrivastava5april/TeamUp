@@ -380,3 +380,35 @@ button {
   text-decoration: none;
   font-weight: 600;
 }
+
+.browse-posts {
+  max-width: 900px;
+  margin: 80px auto;
+  padding: 40px 20px;
+}
+
+.browse-posts input {
+  width: 100%;
+  padding: 14px;
+  margin: 20px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+
+.post-card {
+  padding: 25px;
+  margin-top: 20px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.post-card h2 {
+  margin-bottom: 15px;
+}
+
+.post-card p {
+  margin: 8px 0;
+}

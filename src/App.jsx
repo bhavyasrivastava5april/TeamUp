@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import CreatePost from "./CreatePost";
+import BrowsePosts from "./BrowsePosts";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -159,6 +160,7 @@ const filteredEvents = events.filter((event) =>
           </div>
         </section>
         <CreatePost />
+        <BrowsePosts />
       </main>
 
     </div>
