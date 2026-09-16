@@ -95,7 +95,16 @@ function CreatePost() {
 
 setPost(newPost);
 
-localStorage.setItem("teamupPost", JSON.stringify(newPost));
+const existingPosts = JSON.parse(
+  localStorage.getItem("teamupPosts") || "[]"
+);
+
+existingPosts.push(newPost);
+
+localStorage.setItem(
+  "teamupPosts",
+  JSON.stringify(existingPosts)
+);
           setSubmitted(true);
         }}
       >

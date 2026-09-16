@@ -4,14 +4,19 @@ function BrowsePosts() {
   const [posts, setPosts] = useState([]);
   const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    const savedPost = localStorage.getItem("teamupPost");
+useEffect(() => {
+  const oldPost = localStorage.getItem("teamupPost");
 
-    if (savedPost) {
-      setPosts([JSON.parse(savedPost)]);
-    }
-  }, []);
+  const savedPosts = JSON.parse(
+    localStorage.getItem("teamupPosts") || "[]"
+  );
 
+  if (oldPost && savedPosts.length === 0) {
+    savedPosts.push(JSON.parse(oldPost));
+  }
+
+  setPosts(savedPosts);
+}, []);
   const filteredPosts = posts.filter((post) =>
     post.eventName.toLowerCase().includes(search.toLowerCase())
   );
