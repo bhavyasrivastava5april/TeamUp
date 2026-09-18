@@ -38,13 +38,13 @@ useEffect(() => {
         <div className="post-card" key={post.eventName}>
           <h2>{post.eventName}</h2>
 
-          <p>
-            <strong>Members needed:</strong> {post.membersNeeded}
-          </p>
+          <p><strong>About the team:</strong> {post.description}</p>
 
-          <p>
-            <strong>Looking for:</strong> {post.skills}
-          </p>
+<p><strong>Contact:</strong> {post.contact}</p>
+
+<a href={post.eventLink} target="_blank" rel="noreferrer">
+  View Official Event
+</a>
         </div>
       ))}
     </div>
