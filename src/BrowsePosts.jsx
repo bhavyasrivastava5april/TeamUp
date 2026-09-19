@@ -18,8 +18,10 @@ useEffect(() => {
   setPosts(savedPosts);
 }, []);
   const filteredPosts = posts.filter((post) =>
-    post.eventName.toLowerCase().includes(search.toLowerCase())
-  );
+  post.eventName.toLowerCase().includes(search.toLowerCase()) ||
+  post.skills.toLowerCase().includes(search.toLowerCase()) ||
+  post.description.toLowerCase().includes(search.toLowerCase())
+);
 
   return (
     <div className="browse-posts">
