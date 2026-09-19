@@ -36,19 +36,39 @@ useEffect(() => {
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      {filteredPosts.map((post) => (
-        <div className="post-card" key={post.eventName}>
-          <h2>{post.eventName}</h2>
+      {filteredPosts.length > 0 ? (
+  filteredPosts.map((post, index) => (
+    <div className="post-card" key={index}>
+      <h2>{post.eventName}</h2>
 
-          <p><strong>About the team:</strong> {post.description}</p>
+      <p>
+        <strong>Members needed:</strong> {post.membersNeeded}
+      </p>
 
-<p><strong>Contact:</strong> {post.contact}</p>
+      <p>
+        <strong>Looking for:</strong> {post.skills}
+      </p>
 
-<a href={post.eventLink} target="_blank" rel="noreferrer">
-  View Official Event
-</a>
-        </div>
-      ))}
+      <p>
+        <strong>About the team:</strong> {post.description}
+      </p>
+
+      <p>
+        <strong>Contact:</strong> {post.contact}
+      </p>
+
+      <a href={post.eventLink} target="_blank" rel="noreferrer">
+        View Official Event
+      </a>
+    </div>
+  ))
+) : (
+  <p className="empty-message">
+    {search
+      ? "No posts found. Try another search."
+      : "No team posts yet. Create the first one!"}
+  </p>
+)}
     </div>
   );
 }

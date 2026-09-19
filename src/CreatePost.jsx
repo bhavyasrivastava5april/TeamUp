@@ -9,111 +9,114 @@ function CreatePost() {
   const [description, setDescription] = useState("");
   const [contact, setContact] = useState("");
   const [post, setPost] = useState(null);
-  useEffect(() => {
-  const savedPost = localStorage.getItem("teamupPost");
 
-  if (savedPost) {
-    setPost(JSON.parse(savedPost));
+  useEffect(() => {
+    const savedPosts = JSON.parse(
+      localStorage.getItem("teamupPosts") || "[]"
+    );
+
+    if (savedPosts.length > 0) {
+      setPost(savedPosts[savedPosts.length - 1]);
+    }
+  }, []);
+
+  const handleSubmit = () => {
+    if (
+      !eventName ||
+      !eventLink ||
+      !membersNeeded ||
+      !skills ||
+      !description ||
+      !contact
+    ) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    const newPost = {
+      eventName,
+      eventLink,
+      membersNeeded,
+      skills,
+      description,
+      contact,
+    };
+
+    const existingPosts = JSON.parse(
+      localStorage.getItem("teamupPosts") || "[]"
+    );
+
+    existingPosts.push(newPost);
+
+    localStorage.setItem(
+      "teamupPosts",
+      JSON.stringify(existingPosts)
+    );
+
+    setPost(newPost);
     setSubmitted(true);
-  }
-}, []);
+  };
 
   return (
     <div className="create-post">
       <h1>Create a TeamUp Post</h1>
 
-      <p>
-        Find teammates for your next hackathon or competition.
-      </p>
+      <p>Find teammates for your next hackathon or competition.</p>
 
+      <label>Event or Hackathon Name</label>
       <input
         type="text"
-        placeholder="Event or Hackathon Name"
+        placeholder="Enter event name"
         value={eventName}
         onChange={(e) => setEventName(e.target.value)}
       />
 
+      <label>Official Event Link</label>
       <input
         type="url"
-        placeholder="Official Event Link"
+        placeholder="Paste official event link"
         value={eventLink}
         onChange={(e) => setEventLink(e.target.value)}
       />
 
+      <label>Number of Teammates Needed</label>
       <input
         type="number"
-        placeholder="How many teammates do you need?"
+        placeholder="Enter number"
         min="1"
         value={membersNeeded}
         onChange={(e) => setMembersNeeded(e.target.value)}
       />
 
+      <label>Skills or Roles Required</label>
       <input
         type="text"
-        placeholder="What skills or roles are you looking for?"
+        placeholder="Example: React, Python, UI/UX"
         value={skills}
         onChange={(e) => setSkills(e.target.value)}
       />
 
+      <label>About Your Project or Team</label>
       <textarea
-        placeholder="Tell people about your project or team..."
+        placeholder="Describe your project or team"
         rows="5"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
 
+      <label>Contact Information</label>
       <input
         type="text"
-        placeholder="How can interested teammates contact you?"
+        placeholder="Enter email or contact details"
         value={contact}
         onChange={(e) => setContact(e.target.value)}
       />
 
-      <button
-        type="button"
-        onClick={() => {
-          if (
-            !eventName ||
-            !eventLink ||
-            !membersNeeded ||
-            !skills ||
-            !description ||
-            !contact
-          ) {
-            alert("Please fill in all fields.");
-            return;
-          }
-
-         const newPost = {
-  eventName,
-  eventLink,
-  membersNeeded,
-  skills,
-  description,
-  contact,
-};
-
-setPost(newPost);
-
-const existingPosts = JSON.parse(
-  localStorage.getItem("teamupPosts") || "[]"
-);
-
-existingPosts.push(newPost);
-
-localStorage.setItem(
-  "teamupPosts",
-  JSON.stringify(existingPosts)
-);
-          setSubmitted(true);
-        }}
-      >
+      <button type="button" onClick={handleSubmit}>
         Create Post
       </button>
 
-      {submitted && (
-        <p>Post created successfully! 🎉</p>
-      )}
+      {submitted && <p>Post created successfully! 🎉</p>}
 
       {post && (
         <div className="created-post">

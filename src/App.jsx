@@ -17,7 +17,7 @@ function App() {
           <a href="#find-teammates">Find Teammates</a>
         </div>
 
-        <button className="login-btn">Log in</button>
+        
       </nav>
 
       <main>
