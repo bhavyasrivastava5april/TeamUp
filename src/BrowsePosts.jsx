@@ -57,9 +57,14 @@ useEffect(() => {
         <strong>Contact:</strong> {post.contact}
       </p>
 
-      <a href={post.eventLink} target="_blank" rel="noreferrer">
-        View Official Event
-      </a>
+      <a
+  className="event-link"
+  href={post.eventLink}
+  target="_blank"
+  rel="noreferrer"
+>
+  View Official Event →
+</a>
     </div>
   ))
 ) : (

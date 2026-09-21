@@ -1,4 +1,5 @@
 /* Global Styles */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -16,7 +17,8 @@ html {
 }
 
 button,
-a {
+input,
+textarea {
   font-family: inherit;
 }
 
@@ -68,14 +70,6 @@ a {
 
 .nav-links a:hover {
   color: #6366f1;
-}
-
-.login-btn {
-  padding: 10px 20px;
-  border: 1px solid #dfe1e7;
-  border-radius: 8px;
-  background: white;
-  cursor: pointer;
 }
 
 /* Hero Section */
@@ -175,11 +169,20 @@ a {
   line-height: 1.6;
 }
 
+.create-post label {
+  display: block;
+  margin-top: 18px;
+  margin-bottom: 6px;
+  color: #374151;
+  font-size: 14px;
+  font-weight: bold;
+}
+
 .create-post input,
 .create-post textarea {
   width: 100%;
   padding: 13px;
-  margin-top: 14px;
+  margin-top: 4px;
   border: 1px solid #d1d5db;
   border-radius: 7px;
   font-size: 14px;
@@ -260,6 +263,8 @@ a {
   font-size: 14px;
 }
 
+/* Post Cards */
+
 .post-card {
   padding: 25px;
   margin-top: 20px;
@@ -275,14 +280,38 @@ a {
 .post-card p {
   margin: 10px 0;
   color: #374151;
+  line-height: 1.5;
 }
 
-.post-card a {
+/* Event Link Button */
+
+.event-link {
   display: inline-block;
-  margin-top: 12px;
-  color: #6366f1;
-  font-weight: bold;
+  margin-top: 15px;
+  padding: 10px 16px;
+  background: #6366f1;
+  color: white !important;
+  border-radius: 7px;
   text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.event-link:hover {
+  background: #4f46e5;
+}
+
+/* Empty Message */
+
+.empty-message {
+  padding: 30px;
+  margin-top: 20px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  color: #6b7280;
+  font-size: 15px;
+  text-align: center;
 }
 
 /* Mobile Responsive */
@@ -323,22 +352,4 @@ a {
     margin: 40px auto;
     padding: 25px 20px;
   }
-}
-.create-post label {
-  display: block;
-  margin-top: 18px;
-  margin-bottom: 6px;
-  font-size: 14px;
-  font-weight: bold;
-  color: #374151;
-}
-.empty-message {
-  text-align: center;
-  padding: 30px;
-  margin-top: 20px;
-  background: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  color: #6b7280;
-  font-size: 15px;
 }
