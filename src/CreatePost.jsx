@@ -54,7 +54,14 @@ function CreatePost() {
     );
 
     setPost(newPost);
-    setSubmitted(true);
+setSubmitted(true);
+
+setEventName("");
+setEventLink("");
+setMembersNeeded("");
+setSkills("");
+setDescription("");
+setContact("");
   };
 
   return (
@@ -115,8 +122,7 @@ function CreatePost() {
       <button type="button" onClick={handleSubmit}>
         Create Post
       </button>
-
-      {submitted && <p>Post created successfully! 🎉</p>}
+<p className="success-message">Post created successfully! 🎉</p>
 
       {post && (
         <div className="created-post">

@@ -353,3 +353,8 @@ textarea {
     padding: 25px 20px;
   }
 }
+.success-message {
+  margin-top: 15px;
+  color: #2e7d32;
+  font-weight: 600;
+}
