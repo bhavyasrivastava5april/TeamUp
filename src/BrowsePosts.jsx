@@ -46,8 +46,16 @@ useEffect(() => {
       </p>
 
       <p>
-        <strong>Looking for:</strong> {post.skills}
-      </p>
+  <strong>Looking for:</strong>
+</p>
+
+<div className="skill-tags">
+  {post.skills.split(",").map((skill, index) => (
+    <span className="skill-tag" key={index}>
+      {skill.trim()}
+    </span>
+  ))}
+</div>
 
       <p>
         <strong>About the team:</strong> {post.description}

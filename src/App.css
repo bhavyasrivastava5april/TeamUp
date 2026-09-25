@@ -275,12 +275,14 @@ textarea {
 
 .post-card h2 {
   margin-bottom: 15px;
+  font-size: 22px;
+  font-weight: 700;
 }
 
 .post-card p {
-  margin: 10px 0;
+  margin: 14px 0;
   color: #374151;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 /* Event Link Button */
@@ -357,4 +359,23 @@ textarea {
   margin-top: 15px;
   color: #2e7d32;
   font-weight: 600;
+}
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.skill-tag {
+  color: #6366f1;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.skill-tag:not(:last-child)::after {
+  content: " ·";
+  color: #9ca3af;
+  margin-left: 6px;
 }
