@@ -29,12 +29,24 @@ useEffect(() => {
 
       <p>Discover teams looking for members.</p>
 
-      <input
-        type="text"
-        placeholder="Search hackathons..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
+      <div className="search-box">
+  <input
+    type="text"
+    placeholder="Search hackathons..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+  />
+
+  {search && (
+    <button
+      type="button"
+      className="clear-search"
+      onClick={() => setSearch("")}
+    >
+      ✕
+    </button>
+  )}
+</div>
 
       {filteredPosts.length > 0 ? (
   filteredPosts.map((post, index) => (
@@ -78,7 +90,7 @@ useEffect(() => {
 ) : (
   <p className="empty-message">
     {search
-      ? "No posts found. Try another search."
+      ? `No posts found for "${search}". Try another search.`
       : "No team posts yet. Create the first one!"}
   </p>
 )}

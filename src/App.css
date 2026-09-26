@@ -378,4 +378,28 @@ textarea {
   content: " ·";
   color: #9ca3af;
   margin-left: 6px;
+}.search-box {
+  position: relative;
+}
+
+.search-box input {
+  margin: 25px 0;
+  padding-right: 45px;
+}
+
+.clear-search {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.clear-search:hover {
+  color: #171923;
 }
