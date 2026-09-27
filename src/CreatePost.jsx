@@ -55,14 +55,14 @@ function CreatePost() {
     );
 
     setPost(newPost);
-setSubmitted(true);
+    setSubmitted(true);
 
-setEventName("");
-setEventLink("");
-setMembersNeeded("");
-setSkills("");
-setDescription("");
-setContact("");
+    setEventName("");
+    setEventLink("");
+    setMembersNeeded("");
+    setSkills("");
+    setDescription("");
+    setContact("");
   };
 
   return (
@@ -123,7 +123,7 @@ setContact("");
       <button type="button" onClick={handleSubmit}>
         Create Post
       </button>
-<p className="success-message">Post created successfully! 🎉</p>
+      <p className="success-message">Post created successfully! 🎉</p>
 
       {post && (
         <div className="created-post">
@@ -152,6 +152,8 @@ setContact("");
           >
             View Official Event
           </a>
+
+         
         </div>
       )}
     </div>
