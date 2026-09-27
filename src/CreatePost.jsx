@@ -34,6 +34,7 @@ function CreatePost() {
     }
 
     const newPost = {
+      id: Date.now(),
       eventName,
       eventLink,
       membersNeeded,

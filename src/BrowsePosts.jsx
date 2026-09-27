@@ -15,7 +15,12 @@ useEffect(() => {
     savedPosts.push(JSON.parse(oldPost));
   }
 
-  setPosts(savedPosts);
+  const postsWithIds = savedPosts.map((post) => ({
+  ...post,
+  id: post.id || Date.now() + Math.random(),
+}));
+
+setPosts(postsWithIds);
 }, []);
   const filteredPosts = posts.filter((post) =>
   post.eventName.toLowerCase().includes(search.toLowerCase()) ||
@@ -50,7 +55,7 @@ useEffect(() => {
 
       {filteredPosts.length > 0 ? (
   filteredPosts.map((post, index) => (
-    <div className="post-card" key={index}>
+    <div className="post-card" key={post.id}>
       <h2>{post.eventName}</h2>
 
       <p>
