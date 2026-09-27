@@ -4,30 +4,52 @@ function BrowsePosts() {
   const [posts, setPosts] = useState([]);
   const [search, setSearch] = useState("");
 
-useEffect(() => {
-  const oldPost = localStorage.getItem("teamupPost");
+  useEffect(() => {
+    const oldPost = localStorage.getItem("teamupPost");
 
-  const savedPosts = JSON.parse(
-    localStorage.getItem("teamupPosts") || "[]"
+    const savedPosts = JSON.parse(
+      localStorage.getItem("teamupPosts") || "[]"
+    );
+
+    if (oldPost && savedPosts.length === 0) {
+      savedPosts.push(JSON.parse(oldPost));
+    }
+
+    const postsWithIds = savedPosts.map((post) => ({
+      ...post,
+      id: post.id || Date.now() + Math.random(),
+    }));
+    localStorage.setItem(
+      "teamupPosts",
+      JSON.stringify(postsWithIds)
+    );
+    setPosts(postsWithIds);
+  }, []);
+  const filteredPosts = posts.filter((post) =>
+    post.eventName.toLowerCase().includes(search.toLowerCase()) ||
+    post.skills.toLowerCase().includes(search.toLowerCase()) ||
+    post.description.toLowerCase().includes(search.toLowerCase())
   );
 
-  if (oldPost && savedPosts.length === 0) {
-    savedPosts.push(JSON.parse(oldPost));
-  }
 
-  const postsWithIds = savedPosts.map((post) => ({
-  ...post,
-  id: post.id || Date.now() + Math.random(),
-}));
+  const handleDelete = (id) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this post?"
+    );
 
-setPosts(postsWithIds);
-}, []);
-  const filteredPosts = posts.filter((post) =>
-  post.eventName.toLowerCase().includes(search.toLowerCase()) ||
-  post.skills.toLowerCase().includes(search.toLowerCase()) ||
-  post.description.toLowerCase().includes(search.toLowerCase())
-);
+    if (!confirmed) {
+      return;
+    }
 
+    const updatedPosts = posts.filter((post) => post.id !== id);
+
+    localStorage.setItem(
+      "teamupPosts",
+      JSON.stringify(updatedPosts)
+    );
+
+    setPosts(updatedPosts);
+  };
   return (
     <div className="browse-posts">
       <h1>Find Teammates</h1>
@@ -35,70 +57,76 @@ setPosts(postsWithIds);
       <p>Discover teams looking for members.</p>
 
       <div className="search-box">
-  <input
-    type="text"
-    placeholder="Search hackathons..."
-    value={search}
-    onChange={(e) => setSearch(e.target.value)}
-  />
+        <input
+          type="text"
+          placeholder="Search hackathons..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
 
-  {search && (
-    <button
-      type="button"
-      className="clear-search"
-      onClick={() => setSearch("")}
-    >
-      ✕
-    </button>
-  )}
-</div>
+        {search && (
+          <button
+            type="button"
+            className="clear-search"
+            onClick={() => setSearch("")}
+          >
+            ✕
+          </button>
+        )}
+      </div>
 
       {filteredPosts.length > 0 ? (
-  filteredPosts.map((post, index) => (
-    <div className="post-card" key={post.id}>
-      <h2>{post.eventName}</h2>
+        filteredPosts.map((post, index) => (
+          <div className="post-card" key={post.id}>
+            <h2>{post.eventName}</h2>
 
-      <p>
-        <strong>Members needed:</strong> {post.membersNeeded}
-      </p>
+            <p>
+              <strong>Members needed:</strong> {post.membersNeeded}
+            </p>
 
-      <p>
-  <strong>Looking for:</strong>
-</p>
+            <p>
+              <strong>Looking for:</strong>
+            </p>
 
-<div className="skill-tags">
-  {post.skills.split(",").map((skill, index) => (
-    <span className="skill-tag" key={index}>
-      {skill.trim()}
-    </span>
-  ))}
-</div>
+            <div className="skill-tags">
+              {post.skills.split(",").map((skill, index) => (
+                <span className="skill-tag" key={index}>
+                  {skill.trim()}
+                </span>
+              ))}
+            </div>
 
-      <p>
-        <strong>About the team:</strong> {post.description}
-      </p>
+            <p>
+              <strong>About the team:</strong> {post.description}
+            </p>
 
-      <p>
-        <strong>Contact:</strong> {post.contact}
-      </p>
+            <p>
+              <strong>Contact:</strong> {post.contact}
+            </p>
 
-      <a
-  className="event-link"
-  href={post.eventLink}
-  target="_blank"
-  rel="noreferrer"
->
-  View Official Event →
-</a>
-    </div>
-  ))
-) : (
-  <p className="empty-message">
-    {search
-      ? `No posts found for "${search}". Try another search.`
-      : "No team posts yet. Create the first one!"}
-  </p>
-)}
+            <a
+              className="event-link"
+              href={post.eventLink}
+              target="_blank"
+              rel="noreferrer"
+            >
+              View Official Event →
+            </a>
+            <button
+              className="delete-button"
+              onClick={() => handleDelete(post.id)}
+            >
+              Delete Post
+            </button>
+          </div>
+        ))
+      ) : (
+        <p className="empty-message">
+          {search
+            ? `No posts found for "${search}". Try another search.`
+            : "No team posts yet. Create the first one!"}
+        </p>
+      )}
     </div>
   );
 }
