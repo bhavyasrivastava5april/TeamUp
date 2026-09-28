@@ -425,3 +425,20 @@ textarea {
   background: #fef2f2;
   border-color: #fca5a5;
 }
+.edit-button {
+  display: inline-block;
+  margin-top: 15px;
+  margin-left: 10px;
+  padding: 10px 16px;
+  background: #171923;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.edit-button:hover {
+  background: #6366f1;
+}
