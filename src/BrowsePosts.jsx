@@ -31,7 +31,11 @@ function BrowsePosts() {
     post.description.toLowerCase().includes(search.toLowerCase())
   );
 
-
+  const handleEdit = (post) => {
+  localStorage.setItem("editingPost", JSON.stringify(post));
+  window.location.hash = "create-post";
+  window.location.reload();
+};
   const handleDelete = (id) => {
     const confirmed = window.confirm(
       "Are you sure you want to delete this post?"
@@ -112,6 +116,12 @@ function BrowsePosts() {
             >
               View Official Event →
             </a>
+            <button
+              className="edit-button"
+              onClick={() => handleEdit(post)}
+            >
+              Edit Post
+            </button>
             <button
               className="delete-button"
               onClick={() => handleDelete(post.id)}

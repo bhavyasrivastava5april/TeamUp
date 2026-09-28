@@ -250,7 +250,7 @@ textarea {
   margin-bottom: 10px;
 }
 
-.browse-posts > p {
+.browse-posts>p {
   color: #6b7280;
 }
 
@@ -355,11 +355,13 @@ textarea {
     padding: 25px 20px;
   }
 }
+
 .success-message {
   margin-top: 15px;
   color: #2e7d32;
   font-weight: 600;
 }
+
 .skill-tags {
   display: flex;
   flex-wrap: wrap;
@@ -378,7 +380,9 @@ textarea {
   content: " ·";
   color: #9ca3af;
   margin-left: 6px;
-}.search-box {
+}
+
+.search-box {
   position: relative;
 }
 
@@ -402,4 +406,22 @@ textarea {
 
 .clear-search:hover {
   color: #171923;
+}
+.delete-button {
+  display: inline-block;
+  margin-top: 15px;
+  margin-left: 10px;
+  padding: 10px 16px;
+  background: white;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background: #fef2f2;
+  border-color: #fca5a5;
 }

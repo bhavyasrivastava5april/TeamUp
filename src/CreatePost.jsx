@@ -9,6 +9,7 @@ function CreatePost() {
   const [description, setDescription] = useState("");
   const [contact, setContact] = useState("");
   const [post, setPost] = useState(null);
+  const [editingPost, setEditingPost] = useState(null);
 
   useEffect(() => {
     const savedPosts = JSON.parse(
@@ -18,21 +19,73 @@ function CreatePost() {
     if (savedPosts.length > 0) {
       setPost(savedPosts[savedPosts.length - 1]);
     }
+
+    const savedEditingPost = localStorage.getItem("editingPost");
+
+    if (savedEditingPost) {
+      const postToEdit = JSON.parse(savedEditingPost);
+
+      setEditingPost(postToEdit);
+      setEventName(postToEdit.eventName);
+      setEventLink(postToEdit.eventLink);
+      setMembersNeeded(postToEdit.membersNeeded);
+      setSkills(postToEdit.skills);
+      setDescription(postToEdit.description);
+      setContact(postToEdit.contact);
+
+      localStorage.removeItem("editingPost");
+    }
   }, []);
 
   const handleSubmit = () => {
-    if (
-      !eventName ||
-      !eventLink ||
-      !membersNeeded ||
-      !skills ||
-      !description ||
-      !contact
-    ) {
-      alert("Please fill in all fields.");
-      return;
-    }
+  if (
+    !eventName ||
+    !eventLink ||
+    !membersNeeded ||
+    !skills ||
+    !description ||
+    !contact
+  ) {
+    alert("Please fill in all fields.");
+    return;
+  }
 
+  const existingPosts = JSON.parse(
+    localStorage.getItem("teamupPosts") || "[]"
+  );
+
+  if (editingPost) {
+    const updatedPosts = existingPosts.map((post) =>
+      post.id === editingPost.id
+        ? {
+            ...post,
+            eventName,
+            eventLink,
+            membersNeeded,
+            skills,
+            description,
+            contact,
+          }
+        : post
+    );
+
+    localStorage.setItem(
+      "teamupPosts",
+      JSON.stringify(updatedPosts)
+    );
+
+    setPost({
+      ...editingPost,
+      eventName,
+      eventLink,
+      membersNeeded,
+      skills,
+      description,
+      contact,
+    });
+
+    setEditingPost(null);
+  } else {
     const newPost = {
       id: Date.now(),
       eventName,
@@ -43,10 +96,6 @@ function CreatePost() {
       contact,
     };
 
-    const existingPosts = JSON.parse(
-      localStorage.getItem("teamupPosts") || "[]"
-    );
-
     existingPosts.push(newPost);
 
     localStorage.setItem(
@@ -56,14 +105,15 @@ function CreatePost() {
 
     setPost(newPost);
     setSubmitted(true);
+  }
 
-    setEventName("");
-    setEventLink("");
-    setMembersNeeded("");
-    setSkills("");
-    setDescription("");
-    setContact("");
-  };
+  setEventName("");
+  setEventLink("");
+  setMembersNeeded("");
+  setSkills("");
+  setDescription("");
+  setContact("");
+};
 
   return (
     <div className="create-post">
@@ -121,7 +171,7 @@ function CreatePost() {
       />
 
       <button type="button" onClick={handleSubmit}>
-        Create Post
+        {editingPost ? "Update Post" : "Create Post"}
       </button>
       <p className="success-message">Post created successfully! 🎉</p>
 
@@ -153,7 +203,7 @@ function CreatePost() {
             View Official Event
           </a>
 
-         
+
         </div>
       )}
     </div>
