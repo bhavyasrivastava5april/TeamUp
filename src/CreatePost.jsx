@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 function CreatePost() {
   const [eventName, setEventName] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [message, setMessage] = useState("");
   const [eventLink, setEventLink] = useState("");
   const [membersNeeded, setMembersNeeded] = useState("");
   const [skills, setSkills] = useState("");
@@ -38,82 +38,83 @@ function CreatePost() {
   }, []);
 
   const handleSubmit = () => {
-  if (
-    !eventName ||
-    !eventLink ||
-    !membersNeeded ||
-    !skills ||
-    !description ||
-    !contact
-  ) {
-    alert("Please fill in all fields.");
-    return;
-  }
+    if (
+      !eventName ||
+      !eventLink ||
+      !membersNeeded ||
+      !skills ||
+      !description ||
+      !contact
+    ) {
+      alert("Please fill in all fields.");
+      return;
+    }
 
-  const existingPosts = JSON.parse(
-    localStorage.getItem("teamupPosts") || "[]"
-  );
-
-  if (editingPost) {
-    const updatedPosts = existingPosts.map((post) =>
-      post.id === editingPost.id
-        ? {
-            ...post,
-            eventName,
-            eventLink,
-            membersNeeded,
-            skills,
-            description,
-            contact,
-          }
-        : post
+    const existingPosts = JSON.parse(
+      localStorage.getItem("teamupPosts") || "[]"
     );
 
-    localStorage.setItem(
-      "teamupPosts",
-      JSON.stringify(updatedPosts)
-    );
+    if (editingPost) {
+      const updatedPosts = existingPosts.map((post) =>
+        post.id === editingPost.id
+          ? {
+              ...post,
+              eventName,
+              eventLink,
+              membersNeeded,
+              skills,
+              description,
+              contact,
+            }
+          : post
+      );
 
-    setPost({
-      ...editingPost,
-      eventName,
-      eventLink,
-      membersNeeded,
-      skills,
-      description,
-      contact,
-    });
+      localStorage.setItem(
+        "teamupPosts",
+        JSON.stringify(updatedPosts)
+      );
 
-    setEditingPost(null);
-  } else {
-    const newPost = {
-      id: Date.now(),
-      eventName,
-      eventLink,
-      membersNeeded,
-      skills,
-      description,
-      contact,
-    };
+      setPost({
+        ...editingPost,
+        eventName,
+        eventLink,
+        membersNeeded,
+        skills,
+        description,
+        contact,
+      });
 
-    existingPosts.push(newPost);
+      setEditingPost(null);
+      setMessage("Post updated successfully! ✨");
+    } else {
+      const newPost = {
+        id: Date.now(),
+        eventName,
+        eventLink,
+        membersNeeded,
+        skills,
+        description,
+        contact,
+      };
 
-    localStorage.setItem(
-      "teamupPosts",
-      JSON.stringify(existingPosts)
-    );
+      existingPosts.push(newPost);
 
-    setPost(newPost);
-    setSubmitted(true);
-  }
+      localStorage.setItem(
+        "teamupPosts",
+        JSON.stringify(existingPosts)
+      );
 
-  setEventName("");
-  setEventLink("");
-  setMembersNeeded("");
-  setSkills("");
-  setDescription("");
-  setContact("");
-};
+      setPost(newPost);
+      setMessage("Post created successfully! 🎉");
+    }
+
+    setEventName("");
+    setEventLink("");
+    setMembersNeeded("");
+    setSkills("");
+    setDescription("");
+    setContact("");
+  };
 
   return (
     <div className="create-post">
@@ -173,7 +174,10 @@ function CreatePost() {
       <button type="button" onClick={handleSubmit}>
         {editingPost ? "Update Post" : "Create Post"}
       </button>
-      <p className="success-message">Post created successfully! 🎉</p>
+
+      {message && (
+        <p className="success-message">{message}</p>
+      )}
 
       {post && (
         <div className="created-post">
@@ -202,8 +206,6 @@ function CreatePost() {
           >
             View Official Event
           </a>
-
-
         </div>
       )}
     </div>
