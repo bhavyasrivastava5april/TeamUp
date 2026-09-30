@@ -442,3 +442,19 @@ textarea {
 .edit-button:hover {
   background: #6366f1;
 }
+.cancel-edit-button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: white;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancel-edit-button:hover {
+  background: #f3f4f6;
+}

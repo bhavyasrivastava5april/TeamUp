@@ -36,6 +36,17 @@ function CreatePost() {
       localStorage.removeItem("editingPost");
     }
   }, []);
+  const handleCancelEdit = () =>
+       {
+      setEditingPost(null);
+      setEventName("");
+      setEventLink("");
+      setMembersNeeded("");
+      setSkills("");
+      setDescription("");
+      setContact("");
+      setMessage("");
+      };
 
   const handleSubmit = () => {
     if (
@@ -58,14 +69,14 @@ function CreatePost() {
       const updatedPosts = existingPosts.map((post) =>
         post.id === editingPost.id
           ? {
-              ...post,
-              eventName,
-              eventLink,
-              membersNeeded,
-              skills,
-              description,
-              contact,
-            }
+            ...post,
+            eventName,
+            eventLink,
+            membersNeeded,
+            skills,
+            description,
+            contact,
+          }
           : post
       );
 
@@ -170,10 +181,20 @@ function CreatePost() {
         value={contact}
         onChange={(e) => setContact(e.target.value)}
       />
-
+      
       <button type="button" onClick={handleSubmit}>
         {editingPost ? "Update Post" : "Create Post"}
       </button>
+
+      {editingPost && (
+  <button
+    type="button"
+    className="cancel-edit-button"
+    onClick={handleCancelEdit}
+  >
+    Cancel Edit
+  </button>
+)}
 
       {message && (
         <p className="success-message">{message}</p>
