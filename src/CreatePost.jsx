@@ -36,17 +36,16 @@ function CreatePost() {
       localStorage.removeItem("editingPost");
     }
   }, []);
-  const handleCancelEdit = () =>
-       {
-      setEditingPost(null);
-      setEventName("");
-      setEventLink("");
-      setMembersNeeded("");
-      setSkills("");
-      setDescription("");
-      setContact("");
-      setMessage("");
-      };
+  const handleCancelEdit = () => {
+    setEditingPost(null);
+    setEventName("");
+    setEventLink("");
+    setMembersNeeded("");
+    setSkills("");
+    setDescription("");
+    setContact("");
+    setMessage("");
+  };
 
   const handleSubmit = () => {
     if (
@@ -60,6 +59,16 @@ function CreatePost() {
       alert("Please fill in all fields.");
       return;
     }
+    try {
+      new URL(eventLink);
+    } catch {
+      alert("Please enter a valid event link.");
+      return;
+    }
+    if (Number(membersNeeded) < 1) {
+  alert("Number of teammates must be at least 1.");
+  return;
+}
 
     const existingPosts = JSON.parse(
       localStorage.getItem("teamupPosts") || "[]"
@@ -181,20 +190,20 @@ function CreatePost() {
         value={contact}
         onChange={(e) => setContact(e.target.value)}
       />
-      
+
       <button type="button" onClick={handleSubmit}>
         {editingPost ? "Update Post" : "Create Post"}
       </button>
 
       {editingPost && (
-  <button
-    type="button"
-    className="cancel-edit-button"
-    onClick={handleCancelEdit}
-  >
-    Cancel Edit
-  </button>
-)}
+        <button
+          type="button"
+          className="cancel-edit-button"
+          onClick={handleCancelEdit}
+        >
+          Cancel Edit
+        </button>
+      )}
 
       {message && (
         <p className="success-message">{message}</p>
