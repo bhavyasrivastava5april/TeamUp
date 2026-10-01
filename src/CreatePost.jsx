@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 function CreatePost() {
   const [eventName, setEventName] = useState("");
   const [message, setMessage] = useState("");
+  const [linkError, setLinkError] = useState("");
   const [eventLink, setEventLink] = useState("");
   const [membersNeeded, setMembersNeeded] = useState("");
   const [skills, setSkills] = useState("");
@@ -36,6 +37,7 @@ function CreatePost() {
       localStorage.removeItem("editingPost");
     }
   }, []);
+
   const handleCancelEdit = () => {
     setEditingPost(null);
     setEventName("");
@@ -45,6 +47,7 @@ function CreatePost() {
     setDescription("");
     setContact("");
     setMessage("");
+    setLinkError("");
   };
 
   const handleSubmit = () => {
@@ -59,16 +62,19 @@ function CreatePost() {
       alert("Please fill in all fields.");
       return;
     }
+
     try {
       new URL(eventLink);
+      setLinkError("");
     } catch {
-      alert("Please enter a valid event link.");
+      setLinkError("Please enter a valid event link.");
       return;
     }
+
     if (Number(membersNeeded) < 1) {
-  alert("Number of teammates must be at least 1.");
-  return;
-}
+      alert("Number of teammates must be at least 1.");
+      return;
+    }
 
     const existingPosts = JSON.parse(
       localStorage.getItem("teamupPosts") || "[]"
@@ -78,14 +84,14 @@ function CreatePost() {
       const updatedPosts = existingPosts.map((post) =>
         post.id === editingPost.id
           ? {
-            ...post,
-            eventName,
-            eventLink,
-            membersNeeded,
-            skills,
-            description,
-            contact,
-          }
+              ...post,
+              eventName,
+              eventLink,
+              membersNeeded,
+              skills,
+              description,
+              contact,
+            }
           : post
       );
 
@@ -155,8 +161,15 @@ function CreatePost() {
         type="url"
         placeholder="Paste official event link"
         value={eventLink}
-        onChange={(e) => setEventLink(e.target.value)}
+        onChange={(e) => {
+          setEventLink(e.target.value);
+          setLinkError("");
+        }}
       />
+
+      {linkError && (
+        <p className="field-error">{linkError}</p>
+      )}
 
       <label>Number of Teammates Needed</label>
       <input

@@ -458,3 +458,9 @@ textarea {
 .cancel-edit-button:hover {
   background: #f3f4f6;
 }
+.field-error {
+  margin-top: 5px;
+  color: #dc2626 !important;
+  font-size: 13px;
+  font-weight: 600;
+}
