@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 function CreatePost() {
   const [eventName, setEventName] = useState("");
+  const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
   const [linkError, setLinkError] = useState("");
   const [eventLink, setEventLink] = useState("");
@@ -28,6 +29,7 @@ function CreatePost() {
 
       setEditingPost(postToEdit);
       setEventName(postToEdit.eventName);
+      setUsername(postToEdit.username || "");
       setEventLink(postToEdit.eventLink);
       setMembersNeeded(postToEdit.membersNeeded);
       setSkills(postToEdit.skills);
@@ -41,6 +43,7 @@ function CreatePost() {
   const handleCancelEdit = () => {
     setEditingPost(null);
     setEventName("");
+    setUsername("");
     setEventLink("");
     setMembersNeeded("");
     setSkills("");
@@ -53,6 +56,7 @@ function CreatePost() {
   const handleSubmit = () => {
     if (
       !eventName ||
+      !username ||
       !eventLink ||
       !membersNeeded ||
       !skills ||
@@ -86,6 +90,7 @@ function CreatePost() {
           ? {
               ...post,
               eventName,
+              username,
               eventLink,
               membersNeeded,
               skills,
@@ -103,6 +108,7 @@ function CreatePost() {
       setPost({
         ...editingPost,
         eventName,
+        username,
         eventLink,
         membersNeeded,
         skills,
@@ -116,6 +122,7 @@ function CreatePost() {
       const newPost = {
         id: Date.now(),
         eventName,
+        username,
         eventLink,
         membersNeeded,
         skills,
@@ -135,6 +142,7 @@ function CreatePost() {
     }
 
     setEventName("");
+    setUsername("");
     setEventLink("");
     setMembersNeeded("");
     setSkills("");
@@ -146,7 +154,17 @@ function CreatePost() {
     <div className="create-post">
       <h1>Create a TeamUp Post</h1>
 
-      <p>Find teammates for your next hackathon or competition.</p>
+      <p>
+        Find teammates for your next hackathon or competition.
+      </p>
+
+      <label>Your Name / Username</label>
+      <input
+        type="text"
+        placeholder="Enter your name"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
 
       <label>Event or Hackathon Name</label>
       <input
@@ -225,6 +243,10 @@ function CreatePost() {
       {post && (
         <div className="created-post">
           <h2>{post.eventName}</h2>
+
+          <p>
+            <strong>Posted by:</strong> {post.username}
+          </p>
 
           <p>
             <strong>Members needed:</strong> {post.membersNeeded}

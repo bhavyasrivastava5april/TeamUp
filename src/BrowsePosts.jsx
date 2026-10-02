@@ -32,10 +32,10 @@ function BrowsePosts() {
   );
 
   const handleEdit = (post) => {
-  localStorage.setItem("editingPost", JSON.stringify(post));
-  window.location.hash = "create-post";
-  window.location.reload();
-};
+    localStorage.setItem("editingPost", JSON.stringify(post));
+    window.location.hash = "create-post";
+    window.location.reload();
+  };
   const handleDelete = (id) => {
     const confirmed = window.confirm(
       "Are you sure you want to delete this post?"
@@ -83,6 +83,9 @@ function BrowsePosts() {
         filteredPosts.map((post, index) => (
           <div className="post-card" key={post.id}>
             <h2>{post.eventName}</h2>
+            <p className="post-author">
+              Posted by: <strong>{post.username}</strong>
+            </p>
 
             <p>
               <strong>Members needed:</strong> {post.membersNeeded}
