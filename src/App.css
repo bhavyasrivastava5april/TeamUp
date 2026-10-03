@@ -464,3 +464,13 @@ textarea {
   font-size: 13px;
   font-weight: 600;
 }
+.post-author {
+  margin-top: -5px;
+  margin-bottom: 15px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.post-author strong {
+  color: #6366f1;
+}
