@@ -1,5 +1,35 @@
 import { useState, useEffect } from "react";
 
+function getTimeAgo(date) {
+  const seconds = Math.floor(
+    (new Date() - new Date(date)) / 1000
+  );
+
+  if (seconds < 60) {
+    return "just now";
+  }
+
+  const minutes = Math.floor(seconds / 60);
+
+  if (minutes < 60) {
+    return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
+  }
+
+  const hours = Math.floor(minutes / 60);
+
+  if (hours < 24) {
+    return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
+  }
+
+  const days = Math.floor(hours / 24);
+
+  if (days < 7) {
+    return `${days} day${days !== 1 ? "s" : ""} ago`;
+  }
+
+  return new Date(date).toLocaleDateString();
+}
+
 function BrowsePosts() {
   const [posts, setPosts] = useState([]);
   const [search, setSearch] = useState("");
@@ -18,6 +48,7 @@ function BrowsePosts() {
     const postsWithIds = savedPosts.map((post) => ({
       ...post,
       id: post.id || Date.now() + Math.random(),
+      createdAt: post.createdAt || new Date().toISOString(),
     }));
     localStorage.setItem(
       "teamupPosts",
@@ -84,8 +115,13 @@ function BrowsePosts() {
           <div className="post-card" key={post.id}>
             <h2>{post.eventName}</h2>
             <p className="post-author">
-              Posted by: <strong>{post.username}</strong>
+              Posted by: <strong>{post.username || "Unknown user"}</strong>
             </p>
+            {post.createdAt && (
+              <p className="post-date">
+                Posted: {getTimeAgo(post.createdAt)}
+              </p>
+            )}
 
             <p>
               <strong>Members needed:</strong> {post.membersNeeded}

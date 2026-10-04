@@ -128,6 +128,7 @@ function CreatePost() {
         skills,
         description,
         contact,
+        createdAt: new Date().toISOString(),
       };
 
       existingPosts.push(newPost);
