@@ -33,6 +33,7 @@ function getTimeAgo(date) {
 function BrowsePosts() {
   const [posts, setPosts] = useState([]);
   const [search, setSearch] = useState("");
+  const [skillFilter, setSkillFilter] = useState("");
 
   useEffect(() => {
     const oldPost = localStorage.getItem("teamupPost");
@@ -56,11 +57,18 @@ function BrowsePosts() {
     );
     setPosts(postsWithIds);
   }, []);
-  const filteredPosts = posts.filter((post) =>
-    post.eventName.toLowerCase().includes(search.toLowerCase()) ||
-    post.skills.toLowerCase().includes(search.toLowerCase()) ||
-    post.description.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredPosts = posts.filter((post) => {
+    const matchesSearch =
+      post.eventName.toLowerCase().includes(search.toLowerCase()) ||
+      post.skills.toLowerCase().includes(search.toLowerCase()) ||
+      post.description.toLowerCase().includes(search.toLowerCase());
+
+    const matchesSkill =
+      !skillFilter ||
+      post.skills.toLowerCase().includes(skillFilter.toLowerCase());
+
+    return matchesSearch && matchesSkill;
+  });
 
   const handleEdit = (post) => {
     localStorage.setItem("editingPost", JSON.stringify(post));
@@ -109,6 +117,20 @@ function BrowsePosts() {
           </button>
         )}
       </div>
+      <select
+        className="skill-filter"
+        value={skillFilter}
+        onChange={(e) => setSkillFilter(e.target.value)}
+      >
+        <option value="">All Skills</option>
+        <option value="React">React</option>
+        <option value="JavaScript">JavaScript</option>
+        <option value="Python">Python</option>
+        <option value="Java">Java</option>
+        <option value="HTML">HTML</option>
+        <option value="CSS">CSS</option>
+        <option value="UI/UX">UI/UX</option>
+      </select>
 
       {filteredPosts.length > 0 ? (
         filteredPosts.map((post, index) => (
