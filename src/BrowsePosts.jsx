@@ -166,8 +166,10 @@ function BrowsePosts() {
               <strong>About the team:</strong> {post.description}
             </p>
 
-            <p>
-              <strong>Contact:</strong> {post.contact}
+            <p className="contact-info">
+              <strong>Interested in joining?</strong>
+              <br />
+              Contact: {post.contact}
             </p>
 
             <a
