@@ -145,8 +145,9 @@ function BrowsePosts() {
               </p>
             )}
 
-            <p>
-              <strong>Members needed:</strong> {post.membersNeeded}
+            <p className="members-needed">
+              <strong>{post.membersNeeded}</strong> member
+              {Number(post.membersNeeded) !== 1 ? "s" : ""} needed
             </p>
 
             <p>
