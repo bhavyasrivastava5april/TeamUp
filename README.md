@@ -10,21 +10,22 @@ TeamUp provides a simple place where students can post their team requirements a
 
 ## Current Features
 
-* Search for hackathons and competitions
-* View team requirements
-* See the number of members needed
-* See the skills a team is looking for
+* Create team posts for hackathons and competitions
+* Search team posts by event, skills, and description
+* Filter posts by required skills
+* View team requirements and members needed
+* Edit and delete posts
+* Form validation for required fields and event links
+* Display username and post creation time
 * Simple and clean user interface
 
 ## Planned Features
 
-* Create a teammate requirement post
-* View detailed event and team information
 * Express interest in joining a team
-* Contact the person who created a post
-* Add official event links
+* Improve contact and joining experience
 * Store posts using a database
 * User authentication
+* Deploy TeamUp for public use
 
 ## Tech Stack
 
