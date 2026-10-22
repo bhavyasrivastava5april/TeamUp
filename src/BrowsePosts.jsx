@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 
 function getTimeAgo(date) {
@@ -51,21 +52,28 @@ function BrowsePosts() {
       id: post.id || Date.now() + Math.random(),
       createdAt: post.createdAt || new Date().toISOString(),
     }));
+
     localStorage.setItem(
       "teamupPosts",
       JSON.stringify(postsWithIds)
     );
+
     setPosts(postsWithIds);
   }, []);
+
   const filteredPosts = posts.filter((post) => {
+    const eventName = (post.eventName || "").toLowerCase();
+    const skills = (post.skills || "").toLowerCase();
+    const description = (post.description || "").toLowerCase();
+
     const matchesSearch =
-      post.eventName.toLowerCase().includes(search.toLowerCase()) ||
-      post.skills.toLowerCase().includes(search.toLowerCase()) ||
-      post.description.toLowerCase().includes(search.toLowerCase());
+      eventName.includes(search.trim().toLowerCase()) ||
+      skills.includes(search.trim().toLowerCase()) ||
+      description.includes(search.trim().toLowerCase());
 
     const matchesSkill =
       !skillFilter ||
-      post.skills.toLowerCase().includes(skillFilter.toLowerCase());
+      skills.includes(skillFilter.toLowerCase());
 
     return matchesSearch && matchesSkill;
   });
@@ -75,6 +83,7 @@ function BrowsePosts() {
     window.location.hash = "create-post";
     window.location.reload();
   };
+
   const handleDelete = (id) => {
     const confirmed = window.confirm(
       "Are you sure you want to delete this post?"
@@ -93,6 +102,12 @@ function BrowsePosts() {
 
     setPosts(updatedPosts);
   };
+
+  const clearFilters = () => {
+    setSearch("");
+    setSkillFilter("");
+  };
+
   return (
     <div className="browse-posts">
       <h1>Find Teammates</h1>
@@ -112,11 +127,13 @@ function BrowsePosts() {
             type="button"
             className="clear-search"
             onClick={() => setSearch("")}
+            aria-label="Clear search"
           >
             ✕
           </button>
         )}
       </div>
+
       <select
         className="skill-filter"
         value={skillFilter}
@@ -136,9 +153,12 @@ function BrowsePosts() {
         filteredPosts.map((post, index) => (
           <div className="post-card" key={post.id}>
             <h2>{post.eventName}</h2>
+
             <p className="post-author">
-              Posted by: <strong>{post.username || "Unknown user"}</strong>
+              Posted by:{" "}
+              <strong>{post.username || "Unknown user"}</strong>
             </p>
+
             {post.createdAt && (
               <p className="post-date">
                 Posted: {getTimeAgo(post.createdAt)}
@@ -155,7 +175,7 @@ function BrowsePosts() {
             </p>
 
             <div className="skill-tags">
-              {post.skills.split(",").map((skill, index) => (
+              {(post.skills || "").split(",").map((skill, index) => (
                 <span className="skill-tag" key={index}>
                   {skill.trim()}
                 </span>
@@ -163,7 +183,8 @@ function BrowsePosts() {
             </div>
 
             <p>
-              <strong>About the team:</strong> {post.description}
+              <strong>About the team:</strong>{" "}
+              {post.description}
             </p>
 
             <p className="contact-info">
@@ -180,12 +201,14 @@ function BrowsePosts() {
             >
               View Official Event →
             </a>
+
             <button
               className="edit-button"
               onClick={() => handleEdit(post)}
             >
               Edit Post
             </button>
+
             <button
               className="delete-button"
               onClick={() => handleDelete(post.id)}
@@ -194,12 +217,28 @@ function BrowsePosts() {
             </button>
           </div>
         ))
+      ) : posts.length === 0 ? (
+        <div className="empty-message">
+          <h3>No teams available yet!</h3>
+          <p>Be the first to create a team and find your teammates.</p>
+        </div>
       ) : (
-        <p className="empty-message">
-          {search
-            ? `No posts found for "${search}". Try another search.`
-            : "No team posts yet. Create the first one!"}
-        </p>
+        <div className="empty-message">
+          <h3>No teams found!</h3>
+          <p>
+            {search.trim()
+              ? `We couldn't find any teams matching "${search.trim()}".`
+              : "No teams match the selected skill."}
+          </p>
+          <p>Try another keyword or change your skill filter.</p>
+          <button
+            type="button"
+            className="primary-btn"
+            onClick={clearFilters}
+          >
+            Clear Search & Filters
+          </button>
+        </div>
       )}
     </div>
   );
